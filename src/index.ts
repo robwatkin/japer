@@ -7,6 +7,7 @@ import Envelope from './Envelope'
 import Store, { StoreError } from './Store'
 import { logger } from './logger'
 import { NextFunction } from 'express-serve-static-core'
+import { MemoryStore } from './Store/MemoryStore'
 
 declare global {
   namespace Express {
@@ -347,3 +348,4 @@ class Japer {
 }
 
 export default Japer
+export { MemoryStore }
