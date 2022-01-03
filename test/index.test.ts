@@ -1,20 +1,20 @@
 import request from 'supertest'
 import express from 'express'
-// import * as MongoDb from 'mongodb'
+import * as MongoDb from 'mongodb'
 import bodyParser from 'body-parser'
 
 import Japer from '../src'
 import Envelope from '../src/Envelope'
 import Store from '../src/Store'
 import { MemoryStore } from '../src/Store/MemoryStore'
-// import { MongoDbStore } from '../../src/japer/MongoDbStore'
+import { MongoDbStore } from '../src/Store/MongoDbStore'
 import patches from './fixtures/patches'
 
-// import { setTestDbName } from './utils/setTestDbName'
-// const dbName = setTestDbName(__filename)
+import { setTestDbName } from './utils/setTestDbName'
+const dbName = setTestDbName(__filename)
 
-// const storeNames = ['mongoDb', 'memory']
-const storeNames = ['memory']
+const storeNames = ['mongoDb', 'memory']
+// const storeNames = ['memory']
 let app: express.Express
 let japer: Japer
 
@@ -37,23 +37,23 @@ describe(`Japer`, () => {
       })
 
       if (storeName === 'mongoDb') {
-        // let mongoDb: MongoDb.Db | null = null
-        // let dbClient: MongoDb.MongoClient | null = null
+        let mongoDb: MongoDb.Db | null = null
+        let dbClient: MongoDb.MongoClient | null = null
 
-        // beforeAll(async () => {
-        //   dbClient = new MongoDb.MongoClient(`mongodb://localhost:27017/${dbName}`)
-        //   mongoDb = dbClient.db(dbName)
-        //   await dbClient.connect()
-        // })
+        beforeAll(async () => {
+          dbClient = new MongoDb.MongoClient(`mongodb://localhost:27017/${dbName}`)
+          mongoDb = dbClient.db(dbName)
+          await dbClient.connect()
+        })
 
-        // afterAll(async () => {
-        //   await dbClient?.close()
-        // })
+        afterAll(async () => {
+          await dbClient?.close()
+        })
 
-        // beforeEach(() => {
-        //   store = new MongoDbStore(mongoDb!)
-        //   japer = new Japer({ store: store })
-        // })
+        beforeEach(() => {
+          store = new MongoDbStore(mongoDb!)
+          japer = new Japer({ store: store })
+        })
 
       } else if (storeName == 'memory') {
 
@@ -327,9 +327,9 @@ describe(`Japer`, () => {
             return envelope.document.type == 'good'
           })
         } else if (storeName === 'mongoDb') {
-          // store.setFilter(() => {
-          //   return { 'document.type': 'good' }
-          // })
+          store.setFilter(() => {
+            return { 'document.type': 'good' }
+          })
         } else {
           throw new Error('Define a custom store filter for this test')
         }
