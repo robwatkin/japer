@@ -12,10 +12,7 @@ module.exports = {
   "coverageReporters": ["lcov", "text"], // ["lcov"] for full report
   collectCoverageFrom: [
     "**/src/**/*.ts",
-    "!**/src/extern/**",
-    "!**/src/index.ts",
-    "!**/src/startup.ts",
-    "!**/src/utils/logger.ts"
+    "!**/src/logger.ts"
   ]
   // globalSetup: "./tests/setup.ts",
   // globalTeardown: "./tests/teardown.ts",

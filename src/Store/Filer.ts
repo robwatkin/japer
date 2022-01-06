@@ -11,15 +11,18 @@ interface SerializedMap {
 }
 
 export default class Filer {
-  private _filepath: string
+  private _dirPath: string
+  private _filePath: string
 
   constructor(filename: string) {
-    this._filepath = path.join(process.cwd(), 'store', filename)
+    this._dirPath = path.join(process.cwd(), 'store')
+    this._filePath = path.join(this._dirPath, filename)
   }
 
   async read(): Promise<StringOrMap> {
     try {
-      const file = await fs.readFile(this._filepath)
+      await this.makeStore()
+      const file = await fs.readFile(this._filePath)
       const result = JSON.parse(file.toString(), this.reviver)
 
       return result
@@ -28,7 +31,8 @@ export default class Filer {
   }
 
   async write(object: StringOrMap) {
-    await fs.writeFile(this._filepath, JSON.stringify(object, this.replacer, 2))
+    await this.makeStore()
+    await fs.writeFile(this._filePath, JSON.stringify(object, this.replacer, 2))
   }
 
   private replacer(key: string, value: StringOrMap) {
@@ -49,5 +53,15 @@ export default class Filer {
       }
     }
     return value;
+  }
+
+  private async makeStore() {
+    console.log(`makeStore...`)
+    await fs.stat(this._dirPath).catch(async () => {
+      console.log(`mkdir ${this._dirPath}`)
+      await fs.mkdir(this._dirPath).catch(() => null)
+    })
+    console.log(`makeStore done`)
+
   }
 }
