@@ -4,7 +4,8 @@
   "description": "JAson Patch servER",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "repository": "git@github.com:robwatkin/japer.git",
+  "repository": "https://github.com/robwatkin/japer",
+  "homepage": "https://github.com/robwatkin/japer/blob/main/README.md",
   "author": "Rob Watkin <robwatkin@gmail.com>",
   "license": "Apache-2.0",
   "scripts": {
