@@ -1,6 +1,6 @@
 {
   "name": "japer",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "JAson Patch servER",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
