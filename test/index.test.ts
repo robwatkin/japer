@@ -43,7 +43,12 @@ describe(`Japer`, () => {
         beforeAll(async () => {
           dbClient = new MongoDb.MongoClient(`mongodb://localhost:27017/${dbName}`)
           mongoDb = dbClient.db(dbName)
+
           await dbClient.connect()
+
+          mongoDb?.admin().serverStatus((err, info) => {
+            console.log('db info.version', info?.version)
+          })
         })
 
         afterAll(async () => {
