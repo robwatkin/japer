@@ -55,12 +55,11 @@ describe(`Japer`, () => {
           japer = new Japer({ store: store })
         })
 
+        // SOme changes
         describe('get mongo details', () => {
           it('version', () => {
-
             mongoDb?.admin().serverStatus((err, info) => {
               console.log('db info.version', info?.version)
-
             })
 
           })
