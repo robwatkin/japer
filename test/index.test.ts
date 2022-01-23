@@ -55,6 +55,17 @@ describe(`Japer`, () => {
           japer = new Japer({ store: store })
         })
 
+        describe('get mongo details', () => {
+          it('version', () => {
+
+            mongoDb?.admin().serverStatus((err, info) => {
+              console.log('db info.version', info?.version)
+
+            })
+
+          })
+        })
+
       } else if (storeName == 'memory') {
 
         beforeEach(() => {
