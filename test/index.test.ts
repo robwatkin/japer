@@ -24,6 +24,10 @@ beforeEach(() => {
 
 describe(`Japer`, () => {
 
+  it('failing test', () => {
+    expect(true).toBe(false)
+  })
+
   storeNames.forEach(storeName => {
     const url = `/japer-${storeName.toLowerCase()}`
     let store: Store
